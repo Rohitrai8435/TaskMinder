@@ -5,24 +5,6 @@ import cloudinary from "cloudinary";
 import { sendToken } from "../utils/jwtToken.js";
 
 export const register = catchAsyncErrors(async (req, res, next) => {
-  // if (!req.files || Object.keys(req.files).length === 0) {
-  //   return next(new ErrorHandler("User Avatar Required!", 400));
-  // }
-  // const { avatar } = req.files;
-  // const allowedFormats = [
-  //   "image/png",
-  //   "image/jpeg",
-  //   "image/webp",
-  //   "image/avif",
-  // ];
-  // if (!allowedFormats.includes(avatar.mimetype)) {
-  //   return next(
-  //     new ErrorHandler(
-  //       "Please provide avatar in png,jpg,webp or avif format!",
-  //       400
-  //     )
-  //   );
-  // }
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
     return next(new ErrorHandler("Please fill full form!", 400));
@@ -31,15 +13,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
   if (user) {
     return next(new ErrorHandler("User already exists!", 400));
   }
-  // const cloudinaryResponse = await cloudinary.uploader.upload(
-  //   avatar.tempFilePath
-  // );
-  // if (!cloudinaryResponse || cloudinary.error) {
-  //   console.error(
-  //     "Cloudinary Error:",
-  //     cloudinaryResponse.error || "Unknown cloudinary error!"
-  //   );
-  // }
+
   user = await User.create({
     name,
     email,
